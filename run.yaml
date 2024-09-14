@@ -1,8 +1,7 @@
 trigger:
 - master
 
-pool:  
-  vmImage: 'ubuntu-latest'
+pool: 'Local'
 
 steps:
 - script: echo "Hello, world!"  
