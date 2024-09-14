@@ -18,4 +18,4 @@ steps:
   inputs:    
     testResultsFormat: 'JUnit'  # Correct format for JUnit
     testResultsFiles: '**/junit-report.xml'  # Correct file path syntax
-     failTaskOnFailedTests: true
+    failTaskOnFailedTests: true
