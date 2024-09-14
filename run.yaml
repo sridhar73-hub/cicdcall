@@ -1,20 +1,21 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-trigger:- master
+trigger:
+- master
+
 pool:  
-vmImage: 'ubuntu-latest'
-steps:- 
-script: echo Hello, world!  
-displayName: 'Run a one-line script'
-//Settings
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo "Hello, world!"  
+  displayName: 'Run a one-line script'
+
+# Run a generic shell script file
 - task: Bash@3 
- inputs:    
-filePath: './myscriptci.sh' //Generic Shell Script file
-//Settings
+  inputs:    
+    filePath: './myscriptci.sh'
+
+# Publish test results
 - task: PublishTestResults@2  
-displayName: 'publish testsigma test results'  
-inputs:    
-testResultsFormat: 'Junit'// Test Result Format   
-testResultsFiles: '**/junit-report.xml' //Result File Type
+  displayName: 'Publish Testsigma test results'  
+  inputs:    
+    testResultsFormat: 'JUnit'  # Correct format for JUnit
+    testResultsFiles: '**/junit-report.xml'  # Correct file path syntax
