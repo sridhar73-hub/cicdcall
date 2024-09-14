@@ -1,7 +1,7 @@
 trigger:
 - master
 
-pool: 'Local'
+pool: 'sridhar'
 
 steps:
 - script: echo "Hello, world!"  
