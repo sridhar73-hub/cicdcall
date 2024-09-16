@@ -12,22 +12,6 @@ steps:
   inputs:    
     filePath: './myscriptci.sh'
 
-- task: VSTest@2
-  displayName: 'Test-Run'
-  enabled: true
-  continueOnError: true
-  inputs:
-    testSelector: 'testplan'
-    testPlan: '4'
-    testSuite: '6'
-    testConfiguration: 1
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    uiTests: true
-    runTestsInIsolation: true
-    codeCoverageEnabled: true
-    testRunTitle: 'VisuConsultTest-Execution'
-    rerunFailedTests: false
-
 # Publish test results
 - task: PublishTestResults@2  
   displayName: 'Publish Testsigma test results'  
