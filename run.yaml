@@ -1,7 +1,8 @@
 trigger:
 - master
 
-vmImage: 'windows-latest'
+pool:
+  vmImage: 'windows-latest'
 
 steps:
 - script: echo "Hello, world!"
