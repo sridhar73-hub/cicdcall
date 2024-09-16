@@ -1,33 +1,33 @@
 trigger:
 - master
 
-pool:  'testing'
-
+pool: 'testing'
 
 steps:
-- script: echo "Hello, world!"  
+- script: echo "Hello, world!"
   displayName: 'Run a one-line script'
 
 # Run a generic shell script file
-- task: Bash@3 
+- task: Bash@3
   inputs:    
     filePath: './myscriptci.sh'
 
 - task: VSTest@2
-      displayName: 'Test-Run'
-      enabled: true
-      continueOnError: true
-      inputs:
-        testSelector: 'testplan'
-        testPlan: '4'
-        testSuite: '6'
-        testConfiguration: 1
-        searchFolder: '$(System.DefaultWorkingDirectory)'
-        uiTests: true
-        runTestsInIsolation: true
-        codeCoverageEnabled: true
-        testRunTitle: 'VisuConsultTest-Execution'
-        rerunFailedTests: false
+  displayName: 'Test-Run'
+  enabled: true
+  continueOnError: true
+  inputs:
+    testSelector: 'testplan'
+    testPlan: '4'
+    testSuite: '6'
+    testConfiguration: 1
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    uiTests: true
+    runTestsInIsolation: true
+    codeCoverageEnabled: true
+    testRunTitle: 'VisuConsultTest-Execution'
+    rerunFailedTests: false
+
 # Publish test results
 - task: PublishTestResults@2  
   displayName: 'Publish Testsigma test results'  
