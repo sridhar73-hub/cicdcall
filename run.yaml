@@ -1,7 +1,7 @@
 trigger:
 - master
 
-pool: 'testing'
+vmImage: 'windows-latest'
 
 steps:
 - script: echo "Hello, world!"
