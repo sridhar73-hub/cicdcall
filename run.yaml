@@ -13,6 +13,14 @@ steps:
   inputs:    
     filePath: './myscriptci.sh'
 
+- task: RunTests@2
+  displayName: 'Run Tests from Test Plan'
+  inputs:
+    testSelector: 'testPlan'
+    testPlan: '4'        # Replace with the actual Test Plan ID
+    testSuite: '6'      # Replace with the actual Test Suite ID
+    testConfiguration: '1'  # Replace with the actual Test Configuration ID    
+
 # Publish test results
 - task: PublishTestResults@2  
   displayName: 'Publish Testsigma test results'  
