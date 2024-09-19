@@ -9,7 +9,7 @@ steps:
 
 - task: Bash@3 
  inputs:    
-filePath: './myscriptwin.bat'
+ filePath: './myscriptwin.bat'
 
 - task: VSTest@2
   inputs:
