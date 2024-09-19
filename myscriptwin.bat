@@ -16,14 +16,20 @@ set /a SLEEP_TIME=%POLL_INTERVAL_FOR_RUN_STATUS% * 60
 REM Trigger execution
 set REQUEST_BODY={"executionId":"%TESTSIGMA_TEST_PLAN_ID%"}
 curl -s -X POST -H "Authorization: Bearer %TESTSIGMA_API_KEY%" -H "Accept: application/json" -H "Content-Type: application/json" -d "%REQUEST_BODY%" %TESTSIGMA_TEST_PLAN_REST_URL% > trigger_response.json
-for /f "tokens=*" %%i in ('jq -r ".id" trigger_response.json') do set RUN_ID=%%i
+
+REM Get RUN_ID using PowerShell
+for /f "delims=" %%i in ('powershell -command "($response = Get-Content trigger_response.json | ConvertFrom-Json).id"') do set RUN_ID=%%i
 
 REM Poll status
 set status_URL=%TESTSIGMA_TEST_PLAN_REST_URL%/%RUN_ID%
 for /l %%i in (1,1,%NO_OF_POLLS%) do (
     curl -s -H "Authorization: Bearer %TESTSIGMA_API_KEY%" -H "Accept: application/json" -H "Content-Type: application/json" %status_URL% > status_response.json
-    set EXECUTION_STATUS=%EXECUTION_STATUS% 
+    
+    REM Get EXECUTION_STATUS using PowerShell
+    for /f "delims=" %%j in ('powershell -command "($response = Get-Content status_response.json | ConvertFrom-Json).status"') do set EXECUTION_STATUS=%%j
+    
     echo Execution Status: %EXECUTION_STATUS%
+    
     if "%EXECUTION_STATUS%" == "STATUS_IN_PROGRESS" (
         echo Sleep/Wait for %SLEEP_TIME% seconds before next poll.....
         timeout /t %SLEEP_TIME%
