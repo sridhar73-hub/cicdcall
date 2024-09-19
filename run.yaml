@@ -10,14 +10,14 @@ steps:
 # Run a generic shell script file
 - task: Bash@3
   inputs:    
-    filePath: './myscriptci.sh'
-    
-- task: VSTest@2
+    filePath: './myscriptci.sh' 
+
+- task: DotNetCoreCLI@2
   inputs:
-    testSelector: 'testPlan'
-    testPlan: '1'
-    testSuite: '2'
-    testConfiguration: '1'  
+    command: 'test'
+    projects: '**/*.csproj'  # Adjust the path to your test project if necessary
+    arguments: '--configuration Release --logger "trx;LogFileName=test-results.trx"'
+    
 
 # Publish test results
 - task: PublishTestResults@2  
