@@ -10,7 +10,7 @@ steps:
 # Run a generic shell script file
 - task: Bash@3
   inputs:    
-    filePath: './myscriptci.sh' 
+    filePath: './myscriptwin.sh' 
 
 - task: VSTest@2
   inputs:
