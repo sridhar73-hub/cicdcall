@@ -1,7 +1,7 @@
 trigger:
 - master
 
-pool: 'testingwin'
+pool: Testingwin
 
 steps:
 - script: echo "Hello, world!"
