@@ -7,10 +7,9 @@ steps:
 - script: echo "Hello, world!"
   displayName: 'Run a one-line script'
 
-# Run a generic shell script file
-- task: Bash@3
-  inputs:    
-    filePath: './myscriptwin.sh' 
+- script: |
+    scripts\myscript.bat
+  displayName: 'Run a batch script' 
 
 - task: VSTest@2
   inputs:
