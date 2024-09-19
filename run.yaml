@@ -1,7 +1,7 @@
 trigger:
 - master
 
-pool: 'testing'
+pool: 'Testingwin'
 
 steps:
 - script: echo "Hello, world!"
@@ -12,12 +12,12 @@ steps:
   inputs:    
     filePath: './myscriptci.sh' 
 
-- task: DotNetCoreCLI@2
+- task: VSTest@2
   inputs:
-    command: 'test'
-    projects: '**/*.csproj'  # Adjust the path to your test project if necessary
-    arguments: '--configuration Release --logger "trx;LogFileName=test-results.trx"'
-    
+    testSelector: 'testPlan'
+    testPlan: '1'
+    testSuite: '2'
+    testConfiguration: '1' 
 
 # Publish test results
 - task: PublishTestResults@2  
