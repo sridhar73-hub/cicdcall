@@ -11,6 +11,13 @@ steps:
 - task: Bash@3
   inputs:    
     filePath: './myscriptci.sh'
+    
+- task: VSTest@2
+  inputs:
+    testSelector: 'testPlan'
+    testPlan: '1'
+    testSuite: '2'
+    testConfiguration: '1'  
 
 # Publish test results
 - task: PublishTestResults@2  
