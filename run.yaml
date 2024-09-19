@@ -1,15 +1,16 @@
 trigger:
 - master
 
-pool: Testingwin
+pool: 
+  name: 'Testingwin'  # Make sure to use the correct agent pool name
 
 steps:
 - script: echo "Hello, world!"
   displayName: 'Run a one-line script'
 
-- task: Bash@3 
- inputs:    
- filePath: './myscriptwin.bat'
+# Use script task for running .bat files on Windows
+- script: .\myscriptwin.bat
+  displayName: 'Run a batch script'
 
 - task: VSTest@2
   inputs:
