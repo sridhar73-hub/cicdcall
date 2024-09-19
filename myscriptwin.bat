@@ -32,7 +32,7 @@ for /l %%i in (1,1,%NO_OF_POLLS%) do (
     
     if "%EXECUTION_STATUS%" == "STATUS_IN_PROGRESS" (
         echo Sleep/Wait for %SLEEP_TIME% seconds before next poll.....
-        timeout /t %SLEEP_TIME%
+        timeout /t %SLEEP_TIME% >nul
     ) else (
         echo Automated Tests Execution completed... Total script execution time: %%i minutes
         goto :break
