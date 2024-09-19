@@ -12,7 +12,7 @@ steps:
   inputs:    
     filePath: './myscriptci.sh'
     
-- task: VSTest@2
+- task: Bash@2
   inputs:
     testSelector: 'testPlan'
     testPlan: '1'
