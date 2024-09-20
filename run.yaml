@@ -12,13 +12,9 @@ steps:
 - script: .\myscriptwin.bat
   displayName: 'Run a batch script'
 
-- task: VSTest@2
-  inputs:
-    vsTestVersion: '17.0'
-    testSelector: 'testPlan'
-    testPlan: '1'
-    testSuite: '2'
-    testConfiguration: '1' 
+- script: |
+    dotnet test --filter "TestPlanId=1" --configuration Release
+    displayName: 'Run .NET Tests'
 
 # Publish test results
 - task: PublishTestResults@2  
