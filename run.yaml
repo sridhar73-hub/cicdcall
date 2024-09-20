@@ -19,11 +19,6 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'build'
-    projects: '**/*.csproj'  # Adjust the path to your project files
-
-- task: DotNetCoreCLI@2
-  inputs:
     command: 'test'
     projects: '**/*.csproj'  # Adjust this path to your test project files
     arguments: '--configuration Release'
