@@ -14,7 +14,7 @@ steps:
 
 - task: VSTest@2
   inputs:
-    vsTestVersion: 'latest'
+    vsTestVersion: '17.0'
     testSelector: 'testPlan'
     testPlan: '1'
     testSuite: '2'
