@@ -1,19 +1,45 @@
-trigger:
-- master
+pool:
+  vmImage: 'macOS-latest'   # Use macOS or another OS depending on your requirement
 
-pool: 
-  name: 'testing'
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.x.x'         # Specify the version of the .NET SDK
 
-steps:  # Add 'steps' to define the sequence of tasks
+- script: dotnet restore     # Restore the .NET project dependencies
 
-# Run a shell script
+- script: |
+    dotnet test --no-build \
+    --configuration $(BuildConfiguration) \
+    --filter FullyQualifiedName~test \
+    --logger trx \
+    --results-directory $(System.DefaultWorkingDirectory)/TestResults
+  displayName: 'Run .NET Core Tests'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/*.trx'
+    searchFolder: '$(System.DefaultWorkingDirectory)/TestResults'
+    testRunTitle: 'Automated Test Run'
+
+# Use the Azure DevOps CLI or a custom script to link the test results to Test Plans or Suites
 - task: Bash@3
   inputs:
-    filePath: './myscriptci.sh'
-
-# Publish test results
-- task: PublishTestResults@2
-  displayName: 'Publish Testsigma test results'
-  inputs:
-    testResultsFormat: 'JUnit'  # Fix the format, must be 'JUnit' (case-sensitive)
-    testResultsFiles: '**/junit-report-*.xml'
+    targetType: 'inline'
+    script: |
+      # Using Azure DevOps REST API to update the Test Plan with test results
+      curl -X POST \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $(System.AccessToken)" \
+      https://dev.azure.com/$(System.TeamProject)/_apis/testplan/Plans/$(TestPlanId)/suites/$(TestSuiteId)/results?api-version=7.0 \
+      --data '{
+        "testPlan": {
+          "id": $(TestPlanId)
+        },
+        "testSuite": {
+          "id": $(TestSuiteId)
+        },
+        "results": $(System.DefaultWorkingDirectory)/TestResults/*.trx
+      }'
+  displayName: 'Link Test Results to Test Plan and Test Suite'
