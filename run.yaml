@@ -35,6 +35,6 @@ steps:  # Add 'steps' to define the sequence of tasks
         "testSuite": {
           "id": $(TestSuiteId)
         },
-        "results": $(System.DefaultWorkingDirectory)/TestResults/*.trx
+        "results": $(System.DefaultWorkingDirectory)/TestResults/**/junit-report-*.xml
       }'
   displayName: 'Link Test Results to Test Plan and Test Suite'
