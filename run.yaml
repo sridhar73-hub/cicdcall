@@ -27,7 +27,7 @@ steps:  # Add 'steps' to define the sequence of tasks
       curl -X POST \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer $(System.AccessToken)" \
-      https://dev.azure.com/$(System.TeamProject)/_apis/testplan/Plans/1/suites/2/results?api-version=7.0 \
+      https://dev.azure.com/testsigma/_apis/testplan/Plans/1/suites/2/results?api-version=7.0 \
       --data '{
         "testPlan": {
           "id": 1
