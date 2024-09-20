@@ -3,14 +3,17 @@ trigger:
 
 pool: 
   name: 'testing'
-  
-- task: Bash@3 
- inputs:    
-filePath: './myscriptci.sh' //Generic Shell Script file
 
-//Settings
-- task: PublishTestResults@2  
-displayName: 'publish testsigma test results'  
-inputs:    
-testResultsFormat: 'Junit'// Test Result Format   
-testResultsFiles: '**/junit-report-*.xml' 
+steps:  # Add 'steps' to define the sequence of tasks
+
+# Run a shell script
+- task: Bash@3
+  inputs:
+    filePath: './myscriptci.sh'
+
+# Publish test results
+- task: PublishTestResults@2
+  displayName: 'Publish Testsigma test results'
+  inputs:
+    testResultsFormat: 'JUnit'  # Fix the format, must be 'JUnit' (case-sensitive)
+    testResultsFiles: '**/junit-report-*.xml'
