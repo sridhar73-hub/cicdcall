@@ -12,11 +12,17 @@ steps:
 - script: .\myscriptwin.bat
   displayName: 'Run a batch script'
 
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.0'  # Specify the desired SDK version
+    installationPath: $(Agent.ToolsDirectory)/dotnet    
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     projects: '**/*.csproj'
-    arguments: '--configuration Release'
+    arguments: '--configuration Release'  
 
 # Publish test results
 - task: PublishTestResults@2  
