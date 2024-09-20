@@ -7,8 +7,6 @@ steps:
     packageType: 'sdk'
     version: '6.x'         # Specify the version of the .NET SDK
 
-- script: dotnet restore     # Restore the .NET project dependencies
-
 - script: |
     dotnet test --no-build \
     --configuration $(BuildConfiguration) \
