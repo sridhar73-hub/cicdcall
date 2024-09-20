@@ -5,7 +5,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '6.x.x'         # Specify the version of the .NET SDK
+    version: '6.x'         # Specify the version of the .NET SDK
 
 - script: dotnet restore     # Restore the .NET project dependencies
 
