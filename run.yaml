@@ -12,9 +12,11 @@ steps:
 - script: .\myscriptwin.bat
   displayName: 'Run a batch script'
 
-- script: |
-    dotnet test --filter "TestPlanId=1" --configuration Release
-  displayName: 'Run .NET Tests'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*.csproj'
+    arguments: '--configuration Release'
 
 # Publish test results
 - task: PublishTestResults@2  
