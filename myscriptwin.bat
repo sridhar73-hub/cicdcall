@@ -40,11 +40,4 @@ for /l %%i in (1,1,%NO_OF_POLLS%) do (
 )
 :break
 
-REM Save final response
-if "%EXECUTION_STATUS%" == "STATUS_IN_PROGRESS" (
-    echo Wait time exceeded specified maximum time(MAX_WAIT_TIME_FOR_SCRIPT_TO_EXIT). Please visit below URL for Test Plan Run status: %APP_URL%
-) else (
-    curl -s -H "Authorization: Bearer %TESTSIGMA_API_KEY%" -H "Accept: application/xml" %TESTSIGMA_JUNIT_REPORT_URL%/%RUN_ID% > %REPORT_FILE_PATH%
-)
-
 echo Reports File: %REPORT_FILE_PATH%
