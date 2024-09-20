@@ -14,7 +14,7 @@ steps:
 
 - script: |
     dotnet test --filter "TestPlanId=1" --configuration Release
-    displayName: 'Run .NET Tests'
+  displayName: 'Run .NET Tests'
 
 # Publish test results
 - task: PublishTestResults@2  
