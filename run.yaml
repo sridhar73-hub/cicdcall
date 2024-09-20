@@ -1,33 +1,36 @@
 trigger:
 - master
 
-pool: 
-  name: 'Testingwin'  # Make sure to use the correct agent pool name
+pool:
+  vmImage: 'windows-latest'  # Use an agent with .NET SDK support
 
 steps:
-- script: echo "Hello, world!"
-  displayName: 'Run a one-line script'
-
-# Use script task for running .bat files on Windows
-- script: .\myscriptwin.bat
-  displayName: 'Run a batch script'
-
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '6.x'  # Specify the desired SDK version
-    installationPath: $(Agent.ToolsDirectory)/dotnet    
+    version: '6.x'  # Specify the desired SDK version (e.g., 6.0.100)
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- script: echo "Hello, world!"
+  displayName: 'Run a one-line script'
+
+- script: .\myscriptwin.bat
+  displayName: 'Run a batch script'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'  # Adjust the path to your project files
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/*.csproj'
-    arguments: '--configuration Release'  
+    projects: '**/*.csproj'  # Adjust this path to your test project files
+    arguments: '--configuration Release'
 
-# Publish test results
 - task: PublishTestResults@2  
   displayName: 'Publish Testsigma test results'  
   inputs:    
-    testResultsFormat: 'JUnit'  # Correct format for JUnit
-    testResultsFiles: './junit-report.xml'  # Correct file path syntax
+    testResultsFormat: 'JUnit'
+    testResultsFiles: './junit-report.xml'
     failTaskOnFailedTests: true
