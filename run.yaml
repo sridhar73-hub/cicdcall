@@ -1,8 +1,8 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'windows-latest'  # Use an agent with .NET SDK support
+pool: 
+  name: 'Testingwin'
 
 steps:
 - task: UseDotNet@2
