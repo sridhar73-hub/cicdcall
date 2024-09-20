@@ -12,7 +12,7 @@ steps:
 - script: .\myscriptwin.bat
   displayName: 'Run a batch script'
 
-- task: VSTest@1
+- task: VSTest@2
   inputs:
     testSelector: 'testPlan'
     testPlan: '1'
