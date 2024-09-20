@@ -1,17 +1,22 @@
-pool:
-  name: 'testing'   # Use macOS or another OS depending on your requirement
+trigger:
+- master
 
-steps:
-- task: UseDotNet@2
+pool: 
+  name: 'testing'
+
+steps:  # Add 'steps' to define the sequence of tasks
+
+# Run a shell script
+- task: Bash@3
   inputs:
-    packageType: 'sdk'
-    version: '6.x'         # Specify the version of the .NET SDK
+    filePath: './myscriptci.sh'
 
+# Publish test results
 - task: PublishTestResults@2
+  displayName: 'Publish Testsigma test results'
   inputs:
-    testResultsFiles: '**/*.trx'
-    searchFolder: '$(System.DefaultWorkingDirectory)/TestResults'
-    testRunTitle: 'Automated Test Run'
+    testResultsFormat: 'JUnit'  # Fix the format, must be 'JUnit' (case-sensitive)
+    testResultsFiles: '**/junit-report-*.xml'
 
 # Use the Azure DevOps CLI or a custom script to link the test results to Test Plans or Suites
 - task: Bash@3
