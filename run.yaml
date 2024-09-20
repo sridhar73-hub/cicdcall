@@ -1,5 +1,5 @@
 pool:
-  vmImage: 'macOS-latest'   # Use macOS or another OS depending on your requirement
+  name: 'testing'   # Use macOS or another OS depending on your requirement
 
 steps:
 - task: UseDotNet@2
