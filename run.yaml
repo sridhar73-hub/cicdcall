@@ -12,18 +12,18 @@ steps:  # Add 'steps' to define the sequence of tasks
     filePath: './myscriptci.sh'
 
 - task: VSTest@2
-      displayName: 'Test-Run'
-      enabled: true
-      continueOnError: true
-      inputs:
-        testSelector: 'testplan'
-        testPlan: '1'
-        testSuite: '2'
-        uiTests: true
-        runTestsInIsolation: true
-        codeCoverageEnabled: true
-        testRunTitle: 'VisuConsultTest-Execution'
-        rerunFailedTests: false    
+  displayName: 'Test-Run'
+  enabled: true
+  continueOnError: true
+  inputs:
+    testSelector: 'testplan'
+    testPlan: '1'
+    testSuite: '2'
+    uiTests: true
+    runTestsInIsolation: true
+    codeCoverageEnabled: true
+    testRunTitle: 'VisuConsultTest-Execution'
+    rerunFailedTests: false    
 
 # Publish test results
 - task: PublishTestResults@2
@@ -31,4 +31,3 @@ steps:  # Add 'steps' to define the sequence of tasks
   inputs:
     testResultsFormat: 'JUnit'  # Fix the format, must be 'JUnit' (case-sensitive)
     testResultsFiles: '**/junit-report-*.xml'
-    
