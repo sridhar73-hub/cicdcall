@@ -5,6 +5,7 @@ pool:
   name: testing
   demands:
     - vstest
+    - Agent.Version -equals 3.246.0
 
 steps:  # Add 'steps' to define the sequence of tasks
 
