@@ -1,8 +1,11 @@
 trigger:
 - master
 
-pool: 
-  name: 'testing'
+pool:
+  name: testing
+  demands:
+    - vstest
+    - Agent.Version > 2.163.1
 
 steps:  # Add 'steps' to define the sequence of tasks
 
