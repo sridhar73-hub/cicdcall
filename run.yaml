@@ -3,29 +3,13 @@ trigger:
 
 pool:
   name: testing
-  demands:
-    - vstest
 
 steps:  # Add 'steps' to define the sequence of tasks
 
 # Run a shell script
 - task: Bash@3
   inputs:
-    filePath: './myscriptci.sh'
-
-- task: VSTest@2
-  displayName: 'Test-Run'
-  enabled: true
-  continueOnError: true
-  inputs:
-    testSelector: 'testplan'
-    testPlan: '1'
-    testSuite: '2'
-    uiTests: true
-    runTestsInIsolation: true
-    codeCoverageEnabled: true
-    testRunTitle: 'VisuConsultTest-Execution'
-    rerunFailedTests: false    
+    filePath: './myscriptci.sh'   
 
 # Publish test results
 - task: PublishTestResults@2
@@ -33,3 +17,4 @@ steps:  # Add 'steps' to define the sequence of tasks
   inputs:
     testResultsFormat: 'JUnit'  # Fix the format, must be 'JUnit' (case-sensitive)
     testResultsFiles: '**/junit-report-*.xml'
+    mergeTestResults: true
