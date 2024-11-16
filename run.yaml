@@ -19,4 +19,4 @@ steps:  # Add 'steps' to define the sequence of tasks
     testResultsFiles: '**/junit-report-*.xml'
     mergeTestResults: true
     testPlan: '1'
-    testSuite: '1'
+    testSuite: '12'
