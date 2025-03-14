@@ -9,7 +9,7 @@ steps:  # Add 'steps' to define the sequence of tasks
 # Run a shell script
 - task: Bash@3
   inputs:
-    filePath: './myscriptci.sh'   
+    filePath: './myscriptci.sh'
 
 # Publish test results
 - task: PublishTestResults@2
