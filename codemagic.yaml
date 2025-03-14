@@ -8,6 +8,6 @@ workflows:
     scripts:
       - name: Run Testsigma Tests
         script: |
-curl -X POST -H "Content-type: application/json" -H "Accept:application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTQxNGNiMi1jNWI3LTQ4MWMtYmYxMC1lZDYxMjg4YTEzNzUiLCJkb21haW4iOiJxYXRlYW10ZXN0aW5nZTJlLmNvbSIsInRlbmFudElkIjozNDQ4OX0.xzrFwAsRbaOqwUkV2BiWj02oImYC3EcazjXmbk0Ms9GFF8LZzveIqITF4DNE-cNW0zTgbPHUTRJWk0vmEfSFDw" https://app.testsigma.com/api/v1/execution_results -d "{\"executionId\": \"4931\"}"
+          curl -X POST -H "Content-type: application/json" -H "Accept:application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTQxNGNiMi1jNWI3LTQ4MWMtYmYxMC1lZDYxMjg4YTEzNzUiLCJkb21haW4iOiJxYXRlYW10ZXN0aW5nZTJlLmNvbSIsInRlbmFudElkIjozNDQ4OX0.xzrFwAsRbaOqwUkV2BiWj02oImYC3EcazjXmbk0Ms9GFF8LZzveIqITF4DNE-cNW0zTgbPHUTRJWk0vmEfSFDw" https://app.testsigma.com/api/v1/execution_results -d "{\"executionId\": \"4931\"}"
     artifacts:
       - build/**/*
