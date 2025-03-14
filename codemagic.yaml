@@ -1,20 +1,13 @@
-trigger:
-- master
-
-pool:
-  name: testing
-
-steps:  # Add 'steps' to define the sequence of tasks
-
-# Run a shell script
-- task: Bash@3
-  inputs:
-    filePath: './myscriptci.sh'
-
-# Publish test results
-- task: PublishTestResults@2
-  displayName: 'Publish Testsigma test results'
-  inputs:
-    testResultsFormat: 'JUnit'  # Fix the format, must be 'JUnit' (case-sensitive)
-    testResultsFiles: '**/junit-report-*.xml'
-    
+workflows:
+  testsigma_ci:
+    name: Testsigma CI/CD
+    instance_type: mac_mini_m1 # Choose based on your requirements
+    environment:
+      groups:
+        - testsigma_credentials  # Store API key securely
+    scripts:
+      - name: Run Testsigma Tests
+        script: |
+curl -X POST -H "Content-type: application/json" -H "Accept:application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTQxNGNiMi1jNWI3LTQ4MWMtYmYxMC1lZDYxMjg4YTEzNzUiLCJkb21haW4iOiJxYXRlYW10ZXN0aW5nZTJlLmNvbSIsInRlbmFudElkIjozNDQ4OX0.xzrFwAsRbaOqwUkV2BiWj02oImYC3EcazjXmbk0Ms9GFF8LZzveIqITF4DNE-cNW0zTgbPHUTRJWk0vmEfSFDw" https://app.testsigma.com/api/v1/execution_results -d "{\"executionId\": \"4931\"}"
+    artifacts:
+      - build/**/*
