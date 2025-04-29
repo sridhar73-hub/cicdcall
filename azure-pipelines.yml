@@ -1,0 +1,24 @@
+# Starter pipeline
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+# Run your generic shell script
+- task: Bash@3
+  inputs:
+    filePath: './runscript.sh'
+
+# Publish the JUnit report from Testsigma
+- task: PublishTestResults@2
+  displayName: 'Publish Testsigma Test Results'
+  inputs:
+    testResultsFormat: 'JUnit'          # Correct capitalization
+    testResultsFiles: '**/junit-report.xml'
