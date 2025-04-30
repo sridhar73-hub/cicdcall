@@ -22,4 +22,4 @@ steps:
   condition: succeededOrFailed()
   inputs:
     testResultsFormat: 'JUnit'          # Correct capitalization
-    testResultsFiles: '**/junit-report.xml'
+    testResultsFiles: '/Users/sridhar/Documents/new_azure/vsts-agent-osx-arm64-4.254.0/_work/1/s/junit-report.xml'
