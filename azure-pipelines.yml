@@ -19,6 +19,7 @@ steps:
 # Publish the JUnit report from Testsigma
 - task: PublishTestResults@2
   displayName: 'Publish Testsigma Test Results'
+  condition: succeededOrFailed()
   inputs:
     testResultsFormat: 'JUnit'          # Correct capitalization
     testResultsFiles: '**/junit-report.xml'
