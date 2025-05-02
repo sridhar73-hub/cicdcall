@@ -24,7 +24,7 @@ TESTSIGMA_API_KEY=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTQxNGNiMi1jNWI3LTQ4MWMtYmYxM
 TESTSIGMA_TEST_PLAN_ID=6346
 MAX_WAIT_TIME_FOR_SCRIPT_TO_EXIT=5
 JUNIT_REPORT_FILE_PATH=./junit-report.xml
-RUNTIME_DATA_INPUT="cicd_url=https://simply-travel.testsigma.com/signup,test=1221"
+RUNTIME_DATA_INPUT="cicd_url=https://simply-travel.testsigma.com/signup"
 BUILD_NO=$(date +"%Y%m%d%H%M")
 #********END USER_INPUTS***********
  
