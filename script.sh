@@ -9,8 +9,8 @@
 ##########################################################################################################################################################
 <# START USER INPUTS#>
 
-$TESTSIGMA_API_KEY="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTQxNGNiMi1jNWI3LTQ4MWMtYmYxMC1lZDYxMjg4YTEzNzUiLCJkb21haW4iOiJxYXRlYW10ZXN0aW5nZTJlLmNvbSIsInRlbmFudElkIjozNDQ4OX0.xzrFwAsRbaOqwUkV2BiWj02oImYC3EcazjXmbk0Ms9GFF8LZzveIqITF4DNE-cNW0zTgbPHUTRJWk0vmEfSFDw"
-$TESTSIGMA_TEST_PLAN_ID="5645"
+$TESTSIGMA_API_KEY="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTQxNGNiMi1jNWI3LTQ4MWMtYmYxMC1lZDYxMjg4YTEzNzUiLCJkb21haW4iOiJxYXRlYW10ZXN0aW5nZTJlLmNvbSIsInRlbmFudElkIjozNDQ4OSwiaXNJZGxlVGltZW91dENvbmZpZ3VyZWQiOmZhbHNlfQ.xrg7YV_AxYP30BLeWQiRREjQvXLxBKeDbZyWXFabC3Lkd5tLMsyGMQ2zC1rgxSrPZFEKAO2stVGuCkPh7dCLWA"
+$TESTSIGMA_TEST_PLAN_ID="6600"
 $REPORT_FILE_PATH="./junit-report.xml"
 $MAX_WAIT_TIME_FOR_SCRIPT_TO_EXIT=180
 
