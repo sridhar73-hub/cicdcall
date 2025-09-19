@@ -4,7 +4,7 @@
 # TESTSIGMA_API_KEY -> API key generated under Testsigma App >> Configuration >> API Keys
 #
 # TESTSIGMA_TEST_PLAN_ID -> Testsigma Testplan ID.
-# You can get this from Testsigma App >> Test Plans >> <TEST_PLAN_NAME> >> CI/CD Integration
+# You can get this from Testsigma App >> Test Plans >> <TEST_PLAN_NAME> >> CI/CD Integration.
 #
 # MAX_WAIT_TIME_FOR_SCRIPT_TO_EXIT -> Maximum time in minutes the script will wait for TEST Plan execution to complete. 
 # The script will exit if the Maximum time is exceeded. However, the Test Plan will continue to run. 
