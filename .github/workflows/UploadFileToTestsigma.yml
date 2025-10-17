@@ -26,5 +26,5 @@ jobs:
               -F "uploadType=APK" \
               -F "isPublic=true" \
               -F "applicationId=148" \
-              -F "version=v103" \
+              -F "version=v104" \
               -F "fileContent=@Small Size_2_APKPure.apk"
