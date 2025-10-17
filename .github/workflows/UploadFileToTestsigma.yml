@@ -27,4 +27,4 @@ jobs:
               -F "isPublic=true" \
               -F "applicationId=148" \
               -F "version=v101" \
-              -F "fileContent=@attachments/AttachFile.txt"
+              -F "fileContent=@AttachFile.txt"
