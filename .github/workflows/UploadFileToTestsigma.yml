@@ -1,0 +1,30 @@
+name: Upload Attachment to Testsigma
+
+on:
+  push:
+    branches:
+      - main   # Trigger when you push to main branch
+  workflow_dispatch:   # Also allows manual trigger from Actions tab
+
+jobs:
+  upload-attachment:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository to access your attachment file
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Upload attachment to Testsigma
+      - name: Upload Attachment to Testsigma
+        run: |
+          echo "Uploading attachment from GitHub to Testsigma..."
+          curl -X PUT "https://app.testsigma.com/api/v1/uploads/759" \
+              -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTQxNGNiMi1jNWI3LTQ4MWMtYmYxMC1lZDYxMjg4YTEzNzUiLCJkb21haW4iOiJxYXRlYW10ZXN0aW5nZTJlLmNvbSIsInRlbmFudElkIjozNDQ4OSwiaXNJZGxlVGltZW91dENvbmZpZ3VyZWQiOmZhbHNlfQ.xrg7YV_AxYP30BLeWQiRREjQvXLxBKeDbZyWXFabC3Lkd5tLMsyGMQ2zC1rgxSrPZFEKAO2stVGuCkPh7dCLWA" \
+              -F "projectId=72" \
+              -F "name=newUpload" \
+              -F "uploadType=Attachment" \
+              -F "isPublic=true" \
+              -F "applicationId=148" \
+              -F "version=v101" \
+              -F "fileContent=@attachments/myfile.txt"
