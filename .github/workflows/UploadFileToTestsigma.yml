@@ -26,5 +26,5 @@ jobs:
               -F "uploadType=Attachment" \
               -F "isPublic=true" \
               -F "applicationId=148" \
-              -F "version=v101" \
+              -F "version=v102" \
               -F "fileContent=@AttachFile.txt"
