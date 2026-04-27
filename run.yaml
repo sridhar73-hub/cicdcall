@@ -4,7 +4,7 @@ trigger:
 pool:
   name: testing
 
-steps:  # Add 'steps' to define the sequence of tasks
+steps:  # Add 'steps' to define the sequence of tasks.
 
 # Run a shell script
 - task: Bash@3
