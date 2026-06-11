@@ -13,13 +13,34 @@ steps:
 
 # Run your generic shell script
 - task: Bash@3
+  displayName: 'Run Testsigma shell script'
   inputs:
     filePath: './runscript.sh'
 
-# Publish the JUnit report from Testsigma
+# Copy the JUnit report into the artifact staging directory
+- task: CopyFiles@2
+  displayName: 'Copy JUnit report to staging'
+  condition: succeededOrFailed()
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: 'junit-report.xml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+# Publish the JUnit report as a pipeline artifact (downloadable from the run)
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Test Report Artifact'
+  condition: succeededOrFailed()
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'testsigma-results'
+    publishLocation: 'pipeline'
+
+# Publish the JUnit report so it shows up in the "Tests" tab of the run
 - task: PublishTestResults@2
   displayName: 'Publish Testsigma Test Results'
   condition: succeededOrFailed()
   inputs:
-    testResultsFormat: 'JUnit'          # Correct capitalization
-    testResultsFiles: '/Users/sridhar/Documents/new_azure/vsts-agent-osx-arm64-4.254.0/_work/1/s/junit-report.xml'
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit-report.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    failTaskOnFailedTests: true
