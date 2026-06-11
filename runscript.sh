@@ -29,7 +29,7 @@ BUILD_NO=$(date +"%Y%m%d%H%M")
 #********END USER_INPUTS***********
  
 #********GLOBAL variables**********
-POLL_COUNT=30
+POLL_COUNT=50
 SLEEP_TIME=$(((MAX_WAIT_TIME_FOR_SCRIPT_TO_EXIT*60)/$POLL_COUNT))
 JSON_REPORT_FILE_PATH=./testsigma.json
 TESTSIGMA_TEST_PLAN_REST_URL=https://app.testsigma.com/api/v1/execution_results
