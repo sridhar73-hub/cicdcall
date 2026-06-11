@@ -26,9 +26,8 @@ steps:
     echo "=== Agent.BuildDirectory ==="
     echo "$(Agent.BuildDirectory)"
     echo "=== Searching for xml/junit files under agent work dir ==="
-    find "$(Agent.BuildDirectory)" -type f \( -name "*.xml" -o -name "junit*" \) 2>/dev/null
-    echo "=== Searching home dir too (in case Testsigma CLI writes there) ==="
-    find "$HOME" -maxdepth 4 -type f -name "junit*.xml" 2>/dev/null
+    find "$(Agent.BuildDirectory)" -type f \( -name "*.xml" -o -name "junit*" \) 2>/dev/null || true
+    exit 0
   displayName: 'DEBUG: locate junit report'
   condition: succeededOrFailed()
 
