@@ -11,11 +11,26 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-# Run your generic shell script
+# Run your generic shell script (Testsigma execution)
 - task: Bash@3
   displayName: 'Run Testsigma shell script'
   inputs:
     filePath: './runscript.sh'
+
+# DEBUG: find where the JUnit report actually got written
+- script: |
+    echo "=== Working directory ==="
+    pwd
+    echo "=== System.DefaultWorkingDirectory ==="
+    echo "$(System.DefaultWorkingDirectory)"
+    echo "=== Agent.BuildDirectory ==="
+    echo "$(Agent.BuildDirectory)"
+    echo "=== Searching for xml/junit files under agent work dir ==="
+    find "$(Agent.BuildDirectory)" -type f \( -name "*.xml" -o -name "junit*" \) 2>/dev/null
+    echo "=== Searching home dir too (in case Testsigma CLI writes there) ==="
+    find "$HOME" -maxdepth 4 -type f -name "junit*.xml" 2>/dev/null
+  displayName: 'DEBUG: locate junit report'
+  condition: succeededOrFailed()
 
 # Copy the JUnit report into the artifact staging directory
 - task: CopyFiles@2
@@ -23,8 +38,9 @@ steps:
   condition: succeededOrFailed()
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: 'junit-report.xml'
+    Contents: '**/junit-report.xml'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
 
 # Publish the JUnit report as a pipeline artifact (downloadable from the run)
 - task: PublishPipelineArtifact@1
