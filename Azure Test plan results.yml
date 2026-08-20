@@ -48,8 +48,8 @@ steps:
 
 # Push real per-test-case outcomes into Azure Test Plans
 - script: |
-    chmod +x ./push-to-azure-test-plans.sh
-    ./push-to-azure-test-plans.sh
+    chmod +x ./push to azure test plans.sh
+    ./push to azure test plans.sh
   displayName: 'Sync results to Azure Test Plans'
   condition: succeededOrFailed()
   env:
