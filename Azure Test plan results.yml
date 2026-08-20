@@ -1,0 +1,88 @@
+# Starter pipeline
+# https://aka.ms/yaml
+#
+# Pipeline variables to set in Azure DevOps UI (Pipelines > Edit > Variables):
+#   AZURE_DEVOPS_TOKEN   (secret) - PAT with "Test Management: Read & Write" scope
+# AZURE_DEVOPS_ORG / AZURE_DEVOPS_PROJECT are auto-derived from this pipeline's
+# own org/project - only add them as variables (and reference them below) if
+# your Test Plan lives in a different org/project than this pipeline.
+#
+# Also make sure testcase-mapping.json and push-to-azure-test-plans.sh are
+# committed in this repo alongside runscript.sh.
+
+trigger:
+- master
+
+pool:
+  name: 'Sritesting'
+
+variables:
+  AZURE_PLAN_ID: '360'    # <-- set to your real Azure Test Plan ID
+  AZURE_SUITE_ID: '411'   # <-- set to your real Azure Test Suite ID
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+# Run your generic shell script (Testsigma execution)
+- task: Bash@3
+  displayName: 'Run Testsigma shell script'
+  inputs:
+    filePath: './runscript.sh'
+
+# Locate the JUnit report wherever it landed, and export its path
+# so later steps don't have to guess
+- script: |
+    echo "=== Working directory ==="
+    pwd
+    echo "=== Searching for junit-report.xml under Agent.BuildDirectory ==="
+    FOUND=$(find "$(Agent.BuildDirectory)" -type f -name "junit-report.xml" 2>/dev/null | head -n 1)
+    if [ -z "$FOUND" ]; then
+      echo "##vso[task.logissue type=error]junit-report.xml not found under $(Agent.BuildDirectory)"
+      exit 1
+    fi
+    echo "Found JUnit report at: $FOUND"
+    echo "##vso[task.setvariable variable=JUNIT_REPORT_PATH]$FOUND"
+  displayName: 'Locate JUnit report'
+  condition: succeededOrFailed()
+
+# Push real per-test-case outcomes into Azure Test Plans
+- script: |
+    chmod +x ./push-to-azure-test-plans.sh
+    ./push-to-azure-test-plans.sh
+  displayName: 'Sync results to Azure Test Plans'
+  condition: succeededOrFailed()
+  env:
+    JUNIT_REPORT_PATH: $(JUNIT_REPORT_PATH)
+    AZURE_DEVOPS_TOKEN: $(AZURE_DEVOPS_TOKEN)
+    AZURE_PLAN_ID: $(AZURE_PLAN_ID)
+    AZURE_SUITE_ID: $(AZURE_SUITE_ID)
+
+# Copy the JUnit report into the artifact staging directory
+- task: CopyFiles@2
+  displayName: 'Copy JUnit report to staging'
+  condition: succeededOrFailed()
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**/junit-report.xml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
+
+# Publish the JUnit report as a pipeline artifact (downloadable from the run)
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Test Report Artifact'
+  condition: succeededOrFailed()
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'testsigma-results'
+    publishLocation: 'pipeline'
+
+# Publish the JUnit report so it shows up in the "Tests" tab of the run too
+- task: PublishTestResults@2
+  displayName: 'Publish Testsigma Test Results'
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit-report.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    failTaskOnFailedTests: true
