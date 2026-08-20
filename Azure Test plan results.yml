@@ -28,7 +28,7 @@ steps:
 - task: Bash@3
   displayName: 'Run Testsigma shell script'
   inputs:
-    filePath: './runscript.sh'
+    filePath: './Push to azure test plans.sh'
 
 # Locate the JUnit report wherever it landed, and export its path
 # so later steps don't have to guess
